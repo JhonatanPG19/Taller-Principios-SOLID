@@ -22,7 +22,7 @@ public class Main {
         
         // Hacia futuro el tipo de repositorio lo podemos leer de un archivo plano
         // setup.properties, asi no tendriamos que recompilar la aplicación
-        IReadCompanyRepository  readRepo = Factory.getInstance().getRepository("ARRAYS");// Podria ir SQLITE
+        IReadCompanyRepository  readRepo = Factory.getInstance().getRepository("SQLITE");// Podria ir SQLITE
         if (readRepo == null) {
             throw new RuntimeException("No se encontró el repositorio 'ARRAYS'. Verifica la configuración de Factory.");
         }

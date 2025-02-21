@@ -21,6 +21,7 @@ public class Factory {
     private Factory() {
         dictionary = new HashMap<>();
         dictionary.put("ARRAYS", new CompanyArraysRepository());
+        dictionary.put("SQLITE", new CompanySqliteRepository());
     }
     
     public void registerRepository(String key, IReadCompanyRepository repository) {
