@@ -16,12 +16,15 @@ public class Factory {
      */
     private static Factory instance;
 
-    private Map<String, ICompanyRepository> dictionary;
+    private Map<String, IReadCompanyRepository> dictionary;
 
     private Factory() {
         dictionary = new HashMap<>();
         dictionary.put("ARRAYS", new CompanyArraysRepository());
-        dictionary.put("SQLITE", new CompanySqliteRepository());
+    }
+    
+    public void registerRepository(String key, IReadCompanyRepository repository) {
+        dictionary.put(key, repository);
     }
 
     /**
@@ -37,22 +40,14 @@ public class Factory {
         return instance;
 
     }
-
+    
     /**
      * Método que crea una instancia concreta de la jerarquia ICompanyRepository
      *
-     * @param repository cadena que indica qué tipo de clase hija debe instanciar
+     * @param token
      * @return una clase hija de la abstracción IProductRepository
      */
-    public ICompanyRepository getRepository(String repository) {
-
-        ICompanyRepository result = null;
-
-        if (dictionary.containsKey(repository)) {
-            result = dictionary.get(repository);
-        }
-
-        return result;
-
+    public IReadCompanyRepository getRepository(String token) {
+        return dictionary.get(token);
     }
 }

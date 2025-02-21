@@ -1,8 +1,6 @@
 package co.edu.unicauca.mycompany.projects.access;
 
 import co.edu.unicauca.mycompany.projects.domain.entities.Company;
-import co.edu.unicauca.mycompany.projects.domain.entities.Sector;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,9 +8,18 @@ import java.util.List;
  *
  * @author Libardo, Julio
  */
-public class CompanyArraysRepository implements ICompanyRepository {
+public class CompanyArraysRepository implements ISaveCompanyRepository, IReadCompanyRepository {
 
-    public static List<Company> myArray;
+    private List<Company> myArray;
+    
+    public CompanyArraysRepository(){
+        this.myArray = CompanyArraysRepositoryInitialization.seed();
+    }
+    
+    @Override
+    public List<Company> listAll() {
+        return myArray;
+    }
 
     @Override
     public boolean save(Company newCompany) {
@@ -22,19 +29,9 @@ public class CompanyArraysRepository implements ICompanyRepository {
         }
         return false;
     }
-
-    @Override
-    public List<Company> listAll() {
-        return myArray;
-    }
     
-    private boolean existsNit(String nit){
-        for (Company company: myArray){
-            if (company.getNit().equals(nit)){
-                return true;
-            }
-        }
-        return false;
+    private boolean existsNit(String nit) {
+        return myArray.stream().anyMatch(company -> company.getNit().equals(nit));
     }
 
 }

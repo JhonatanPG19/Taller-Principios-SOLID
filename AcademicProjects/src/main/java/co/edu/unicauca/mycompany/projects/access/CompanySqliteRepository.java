@@ -11,7 +11,7 @@ import co.edu.unicauca.mycompany.projects.domain.entities.Company;
 
 
 
-public class CompanySqliteRepository implements ICompanyRepository {
+public class CompanySqliteRepository implements ISaveCompanyRepository, IReadCompanyRepository {
     private final String url = "jdbc:sqlite:mycompany.db"; // Cambia el nombre de la base de datos si es necesario
 
     public CompanySqliteRepository(){
