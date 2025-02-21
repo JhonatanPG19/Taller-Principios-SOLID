@@ -26,7 +26,7 @@ public class Main {
         GUIMenu instance = new GUIMenu(service);
         instance.setExtendedState(JFrame.MAXIMIZED_BOTH);
         instance.setVisible(true);
-        //holaaaa
+        //holaaaa *2
     }
     
 }
