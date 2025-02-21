@@ -16,7 +16,6 @@ import java.util.List;
 public class CompanyArraysRepositoryInitialization {
     
     //Funcion qpara retornar la lista de empresas previamente inicializadas
-    //...
     public static List<Company> seed(){
         List<Company> companies = new ArrayList<>();
         companies.add(new Company("012-12-22", "Lacteos Popayan", "313234123", "www.lacteospopayan.com", Sector.SERVICES, "gerentelacteos@gmail.com", "123"));
