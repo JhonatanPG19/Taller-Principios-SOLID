@@ -1,26 +1,34 @@
 package co.edu.unicauca.mycompany.projects.domain.services;
 
 import co.edu.unicauca.mycompany.projects.access.IReadCompanyRepository;
+import co.edu.unicauca.mycompany.projects.access.ISaveCompanyRepository;
 import co.edu.unicauca.mycompany.projects.domain.entities.Company;
 import co.edu.unicauca.mycompany.projects.domain.entities.Sector;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Pruebas unitarias para CompanyService.
- * Se usa Mockito para simular el comportamiento del repositorio de lectura.
- */
 public class CompanyServiceTest {
-    
+
     @Mock 
-    private IReadCompanyRepository readRepositoryMock; // Nuevo repositorio de solo lectura
-// Nuevo repositorio de solo lectura
-    
+    private IReadCompanyRepository readRepositoryMock; // Mock del repositorio de solo lectura
+
+    @Mock
+    private ISaveCompanyRepository saveRepositoryMock; // Mock del repositorio de escritura
+
     private CompanyService companyService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this); // Inicializa los mocks
+        companyService = new CompanyService(readRepositoryMock, saveRepositoryMock); // Inicializa el servicio con ambos mocks
+    }
 
     @Test
     void testGetAllCompanies_ReturnsCompanies() {
@@ -44,6 +52,22 @@ public class CompanyServiceTest {
 
         // Verifica que listAll() fue llamado una vez
         verify(readRepositoryMock, times(1)).listAll();
+    }
+
+    @Test
+    void testSaveCompany_ReturnsTrue() {
+        // Crear una empresa de prueba
+        Company newCompany = createCompany("123459", "Empresa D");
+
+        // Simular el comportamiento del método save
+        when(saveRepositoryMock.save(newCompany)).thenReturn(true);
+
+        // Llamar al método
+        boolean result = companyService.saveCompany(newCompany);
+
+        // Verificación
+        assertTrue(result);
+        verify(saveRepositoryMock, times(1)).save(newCompany);
     }
 
     /**
