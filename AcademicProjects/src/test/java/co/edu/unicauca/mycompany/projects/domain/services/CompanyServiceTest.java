@@ -31,6 +31,18 @@ public class CompanyServiceTest {
     }
 
     @Test
+    void testSaveCompany_Failure() {
+        Company newCompany = new Company("123459", "Empresa D","3434345", "www.mipagina4.com", Sector.SERVICES, "gerente4@gmail.com", "123");
+
+        when(saveRepositoryMock.save(newCompany)).thenReturn(false); // Simula fallo
+
+        boolean result = companyService.saveCompany(newCompany);
+
+        assertFalse(result);
+        verify(saveRepositoryMock, times(1)).save(newCompany);
+    }
+    
+    @Test
     void testGetAllCompanies_ReturnsCompanies() {
         // Simulación de datos
         List<Company> companies = Arrays.asList(
